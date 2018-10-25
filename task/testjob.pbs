@@ -1,0 +1,6 @@
+#!/bin/bash
+#PBS -l walltime=00:00:01
+
+echo $filename
+
+echo $HOSTNAME > /data/$filename

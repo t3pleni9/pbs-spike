@@ -1,0 +1,40 @@
+version: '2'
+services:
+  pbs-head-node:
+    image: pbspro/pbspro
+    networks:
+      - pbs-net
+    volumes:
+#      - "./nodes:/var/spool/pbs/server_priv/nodes"
+      - "./pbs-head-node.conf:/etc/pbs.conf"
+      - "./data:/data"
+      - "./task:/task"
+      - "./task_runner.sh:/data/task_runner.sh"
+    command: tail -f /dev/null
+
+  pbs-compute-node-1:
+    image: pbspro/pbspro
+    links:
+      - pbs-head-node
+    networks:
+      - pbs-net
+    volumes:
+      - "./pbs-com-node.conf:/etc/pbs.conf"
+      - "./data:/data"
+      - "./task:/task"
+    command: tail -f /dev/null
+  pbs-compute-node-2:
+    image: pbspro/pbspro
+    links:
+      - pbs-head-node
+    networks:
+    - artip-pbs-net
+    volumes:
+    - "./pbs-com-node.conf:/etc/pbs.conf"
+    - "./data:/data"
+    - "./task:/task"
+    command: tail -f /dev/null
+
+networks:
+  pbs-net:
+#    driver: default
