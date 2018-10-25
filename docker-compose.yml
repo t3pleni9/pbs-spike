@@ -28,7 +28,7 @@ services:
     links:
       - pbs-head-node
     networks:
-    - artip-pbs-net
+    - pbs-net
     volumes:
     - "./pbs-com-node.conf:/etc/pbs.conf"
     - "./data:/data"
